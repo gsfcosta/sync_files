@@ -1,0 +1,30 @@
+---
+  - name: Sync site
+    synchronize:
+      src: files/
+      dest: /destino
+      
+  - name: Sync ssl
+    synchronize:
+      src: files/ssl/
+      dest: /etc/httpd/ssl/
+
+  - name: Permission html
+    file:
+      path: /destino
+      owner: apache
+      group: apache
+      mode: 0755
+      recurse: yes
+
+  - name: Permission ssl
+    file:
+      path: /etc/httpd/ssl/
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: Reload Service
+    service:
+      name: httpd
+      state: reloaded
